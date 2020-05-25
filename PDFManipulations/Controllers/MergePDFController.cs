@@ -14,13 +14,18 @@ using System.Data.SqlClient;
 using System.Data;
 using static System.Net.Mime.MediaTypeNames;
 using iTextSharp.text;
+using System.Text;
 
 namespace PDFManipulations.Controllers
 {
     public class MergePDFController : Controller
     {
-        private string[] filesPath = { "C\\PDF\\File1.pdf", "C\\PDF\\File2.pdf" };
-        public string outPutFilePath = "C\\PDF";
+        //System.IO.DirectoryInfo files = new DirectoryInfo("C:\\PDF");
+        string[] filesPath = Directory.GetFiles("C:\\PDF");
+
+
+        //private string[] filesPath = files;
+        public string outPutFilePath = "C:\\PDF\\Merged.pdf";
         
 
         [HttpGet]
@@ -31,16 +36,17 @@ namespace PDFManipulations.Controllers
         }
         [HttpGet]
         [Route("MergePDFController/MergeFiless")]
-        public void MergeFiless()
+        public ActionResult MergeFiless()
         {
+            byte[] password = Encoding.ASCII.GetBytes("123456");
             List<PdfReader> readerList = new List<PdfReader>();
             foreach (string filePath in filesPath)
             {
-                PdfReader pdfReader = new PdfReader(filePath);
+                PdfReader pdfReader = new PdfReader(filePath, password);
                 readerList.Add(pdfReader);
             }
             Document document = new Document(PageSize.A4, 0, 0, 0, 0);
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(outPutFilePath, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(outPutFilePath, FileMode.Create,FileAccess.ReadWrite));
             document.Open();
             foreach (PdfReader reader in readerList)
             {
@@ -51,6 +57,7 @@ namespace PDFManipulations.Controllers
                 }
             }
             document.Close();
+            return View();
         }
 
 

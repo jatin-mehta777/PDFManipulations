@@ -13,10 +13,6 @@
     @Html.AntiForgeryToken()
 
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Merge" onclick="location.href='@Url.Action("MergeFiless", "MergePDF")'" class="btn btn-primary" />
-        </div>
-    </div>
+    
     @Html.ActionLink("Merge Files", "MergeFiless", "MergePDF", "MergePDFController/MergeFiless")
 }

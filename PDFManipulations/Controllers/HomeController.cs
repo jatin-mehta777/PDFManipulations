@@ -21,7 +21,7 @@ namespace PDFManipulations.Controllers
     public class HomeController : Controller
     {
         
-        byte[] password = Encoding.ASCII.GetBytes("123456");
+         byte[] password = Encoding.ASCII.GetBytes("123456");
         #region Upload Download file
         public IActionResult FileUpload()
         {
