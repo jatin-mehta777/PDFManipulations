@@ -1,0 +1,26 @@
+1) Connection String to change after runnig DB Script 
+
+In HomeController.cs
+
+private void DbConnection()
+        {
+            //constr =ConfigurationManager.ConnectionStrings["dbcon"].ToString();
+            constr = @"Server = (localdb)\MSSQLLocalDB; Database = PDFFIles; Trusted_Connection = True"; // it needs to change
+            con = new SqlConnection(constr);
+
+        }
+
+2)In HomeCOntroller in AddWatermark method image path to change
+
+  private byte[] AddWatermark(byte[] bytes, BaseFont bf)
+        {
+         //
+
+
+ iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(@"C:\Users\jmehta7\source\repos\PDFManipulations\PDFManipulations\wwwroot\images\12097871.jpg");
+
+..
+
+}
+
+3) For Merging make a folder C:\PDF and put the files there and after Merged.pdf file created rename it or change the location.
