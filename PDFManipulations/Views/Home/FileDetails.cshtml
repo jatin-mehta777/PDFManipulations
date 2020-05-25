@@ -1,0 +1,27 @@
+﻿@model IEnumerable<PDFManipulations.Models.FileDetailsModel>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+
+        <th class="col-md-2"></th>
+    </tr>
+    @if ( Model != null ) {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+
+            <td>
+                @Html.ActionLink("Downlaod", "DownLoadFile", new { id = item.Id })
+                @*@Html.ActionLink("Delete", "DeleteFile", new { id = item.id})*@
+            </td>
+        </tr>
+    }
+    }
+</table>

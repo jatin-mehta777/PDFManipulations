@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "MergeFiles";
+}
+
+<h2>Put the files on C:\PDF to merge</h2>
+
+
+
+
+@using (@Html.BeginForm("MergeFiles", "MergePDF", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Merge" onclick="location.href='@Url.Action("MergeFiless", "MergePDF")'" class="btn btn-primary" />
+        </div>
+    </div>
+    @Html.ActionLink("Merge Files", "MergeFiless", "MergePDF", "MergePDFController/MergeFiless")
+}
