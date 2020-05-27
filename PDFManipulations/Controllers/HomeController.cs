@@ -56,10 +56,12 @@ namespace PDFManipulations.Controllers
                             var font = BaseFont.CreateFont(BaseFont.TIMES_BOLD, BaseFont.WINANSI, BaseFont.EMBEDDED);
                             byte[] watemarkedbytes =  AddWatermark(bytes, font);
 
-                             iTextSharp.text.pdf.PdfReader awatemarkreader = new iTextSharp.text.pdf.PdfReader(watemarkedbytes);
-                            //iTextSharp.text.pdf.PdfReader.unethicalreading = true;
-                            PdfEncryptor.Encrypt(awatemarkreader, outputData, true, "123456", "123456", PdfWriter.ALLOW_SCREENREADERS);
+                             iTextSharp.text.pdf.PdfReader awatemarkreader = new iTextSharp.text.pdf.PdfReader(watemarkedbytes,password);
+                            
+                            PdfEncryptor.Encrypt(awatemarkreader, outputData, true, "123456", "123456", PdfWriter.ALLOW_MODIFY_CONTENTS);
+                        
                             bytes = outputData.ToArray();
+
                             FileDetailsModel Fd = new Models.FileDetailsModel();
                             Fd.FileName = files.FileName;
                             Fd.FileContent = bytes;
@@ -163,6 +165,8 @@ namespace PDFManipulations.Controllers
                 PdfReader reader = new PdfReader(bytes, password);
                 
                 PdfStamper stamper = new PdfStamper(reader, ms);
+                stamper.SetEncryption(password, password, PdfWriter.ALLOW_MODIFY_ANNOTATIONS, PdfWriter.STRENGTH40BITS);
+
                 PdfContentByte waterMark;
                 int times = reader.NumberOfPages;
 
@@ -175,6 +179,8 @@ namespace PDFManipulations.Controllers
                     waterMark.AddImage(img);
                 }
                 stamper.FormFlattening = true;
+               
+               
                 stamper.Close();
                 
                 return ms.ToArray();
