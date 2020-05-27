@@ -1,18 +1,37 @@
-﻿
+﻿@model PDFManipulations.Models.EmpModel
+
 @{
-    ViewData["Title"] = "MergeFiles";
+    ViewBag.Title = "PDF Operations";
 }
 
-<h2>Put the files on C:\PDF to merge</h2>
-
-
-
-
-@using (@Html.BeginForm("MergeFiles", "MergePDF", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("MergeFiless", "MergePDF", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
+            @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Merge" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 text-success">
+            @ViewBag.FileStatus
+        </div>
+    </div>
+    <td>
+        @Html.ActionLink("Click to download", "DownloadFile", "MergePDF")
+        @*@Html.ActionLink("Delete", "DeleteFile", new { id = item.id})*@
+    </td>
 
-    
-    @Html.ActionLink("Merge Files", "MergeFiless", "MergePDF", "MergePDFController/MergeFiless")
+</div>
 }

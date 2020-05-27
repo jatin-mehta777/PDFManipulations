@@ -156,7 +156,7 @@ namespace PDFManipulations.Controllers
         }
         #endregion
 
-        private byte[] AddWatermark(byte[] bytes, BaseFont bf)
+        public byte[] AddWatermark(byte[] bytes, BaseFont bf)
         {
             using (var ms = new MemoryStream(1000 * 1024))
             {

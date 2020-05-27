@@ -3,5 +3,9 @@
     ViewData["Title"] = "Merge Files";
 }
 
-<h2>Files has been merged and will be in C:\PDF\ named Merged PDF</h2>
+<h2>Files has been merged and will be in ~\wwwroot\ Folder named Merged PDF</h2>
+<td>
+    @Html.ActionLink("Click to download", "DownloadFile","MergePDF")
+    @*@Html.ActionLink("Delete", "DeleteFile", new { id = item.id})*@
+</td>
 
