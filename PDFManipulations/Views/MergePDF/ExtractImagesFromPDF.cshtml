@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "ExtractImagesFromPDF";
+}
+
+<h2>ExtractImagesFromPDF</h2>
+
+<body>
+    <div>
+        @*<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="C:\Users\jmehta7\source\repos\PDFManipulations\PDFManipulations\sample.pdf" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
+
+        <script src="~/NewFolder/pdfobject.js"></script>
+        <div id="example1"></div>
+        <script>PDFObject.embed("~/sample.pdf", "#example1");</script>
+
+    </div>
+</body>
+

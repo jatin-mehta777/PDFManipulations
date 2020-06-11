@@ -4,13 +4,11 @@
     ViewBag.Title = "PDF Operations";
 }
 
-
-
-@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" } ))
+@using (Html.BeginForm("ExtractImagesFromPDF", "ImageExtract", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-     <div class="form-horizontal">
+    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -22,7 +20,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Upload" class="btn btn-primary" />
+                <input type="submit" value="Merge" class="btn btn-primary" />
             </div>
         </div>
         <div class="form-group">
@@ -30,24 +28,10 @@
                 @ViewBag.FileStatus
             </div>
         </div>
+        <td>
+            @Html.ActionLink("Click to download", "DownloadFile", "ImageExtract")
+            @*@Html.ActionLink("Delete", "DeleteFile", new { id = item.id})*@
+        </td>
 
-        <div class="form-group">
-            <div class="col-md-8">
-                @Html.ActionLink("PDF Details", "Home", "Home/FileDetails")
-            </div>
-            <div class="col-md-8">
-                @Html.ActionLink("Merge Files", "MergeFiles", "MergePDF", "MergePDFController")
-
-            </div>
-            <div class="col-md-8">
-                @Html.ActionLink("Extract Images", "ExtactImagesFromFile", "ImageExtract", "ExtactImagesFromFile")
-
-            </div>
-            @*<div class="col-md-8">
-                @Html.ActionLink("View PDF", "Home", "Home/ViewPDF")
-
-            </div>*@
-        </div>
     </div>
-     
 }

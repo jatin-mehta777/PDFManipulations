@@ -21,8 +21,7 @@ namespace PDFManipulations.Controllers
     public class HomeController : Controller
     {
         
-         byte[] password = Encoding.ASCII.GetBytes("123456");
-        #region Upload Download file
+        byte[] password = Encoding.ASCII.GetBytes("123456");
         public IActionResult FileUpload()
         {
             return View();
@@ -90,8 +89,8 @@ namespace PDFManipulations.Controllers
         }
 
         [HttpGet]
-        public FileResult DownLoadFile(int id)
-        {
+        public ActionResult DownLoadFile(int id)
+            {
 
 
             List<FileDetailsModel> ObjFiles = GetFileList();
@@ -101,10 +100,13 @@ namespace PDFManipulations.Controllers
                             select new { FC.FileName, FC.FileContent }).ToList().FirstOrDefault();
 
 
-            return File(FileById.FileContent, "application/pdf", FileById.FileName);
+           // return File(FileById.FileContent, "application/pdf", FileById.FileName);
+            return File(FileById.FileContent, "application/pdf");
+
 
         }
-        #endregion
+
+        
             
         #region View Uploaded files
         [HttpGet]
@@ -116,6 +118,24 @@ namespace PDFManipulations.Controllers
            // return View();
 
         }
+
+        [HttpGet]
+        public ViewResult ViewPDF(int id)
+        {
+            List<FileDetailsModel> ObjFiles = GetFileList();
+
+            var FileById = (from FC in ObjFiles
+                            where FC.Id.Equals(id)
+                            select new { FC.Id, FC.FileName, FC.FileContent }).ToList().FirstOrDefault();
+
+            ViewData["ID"] = FileById.Id;
+            // return File(FileById.FileContent, "application/pdf", FileById.FileName);
+
+            return View();
+           // return View();
+
+        }
+
         private List<FileDetailsModel> GetFileList()
         {
             List<FileDetailsModel> DetList = new List<FileDetailsModel>();
@@ -152,6 +172,7 @@ namespace PDFManipulations.Controllers
         private void DbConnection()
         {
             //constr =ConfigurationManager.ConnectionStrings["dbcon"].ToString();
+            //constr = @"Server = sql5059.site4now.net; Database = Db_A5E111_cruisepms; User Id = Db_A5E111_cruisepms_admin; Password = CruisePMS#123;";
             constr = @"Server = (localdb)\MSSQLLocalDB; Database = PDFFIles; Trusted_Connection = True";
             con = new SqlConnection(constr);
 

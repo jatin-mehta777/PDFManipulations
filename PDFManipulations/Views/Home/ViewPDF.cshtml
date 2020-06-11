@@ -1,0 +1,24 @@
+﻿@model PDFManipulations.Models.FileDetailsModel
+
+
+<html>
+<body>
+
+ 
+
+    <iframe id="myframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="" frameborder="100" height="1000%" width="100%"></iframe>
+    <script>
+        var str1 = "https://localhost:44368/Home/DownLoadFile/";
+        var str2 = @ViewData["ID"] ;
+        var res = str1.concat(str2);
+        var param1 = SetPage(res);
+        function SetPage(url) {
+            document.getElementById("myframe").setAttribute("src", url);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
